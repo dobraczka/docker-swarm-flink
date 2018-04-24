@@ -195,7 +195,7 @@ if [[ $UPDOWN = "up" ]];then
 	-e $FLINK_TASKMANAGER_MEMORY_SIZE \
 	-e $FLINK_TASKMANAGER_MEMORY_FRACTION \
 	-e $FLINK_JAVA_OPTS \
-	-d docker-swarm-flink-master && \
+	-d dobraczka/docker-swarm-flink-master && \
 	echo "Starting worker node" && \
 	docker service create --name flink-worker --network flink --mode global --restart-condition on-failure --endpoint-mode dnsrr -e ENABLE_INIT_DAEMON=false \
 	 -e FLINK_MASTER_PORT_6123_TCP_ADDR=flink-master \
@@ -210,7 +210,7 @@ if [[ $UPDOWN = "up" ]];then
 	-e $FLINK_TASKMANAGER_MEMORY_SIZE \
 	-e $FLINK_TASKMANAGER_MEMORY_FRACTION \
 	-e $FLINK_JAVA_OPTS \
-	-d docker-swarm-flink-worker
+	-d dobraczka/docker-swarm-flink-worker
 
 elif [[ $1 = "down" ]];then
 	docker service rm flink-master
