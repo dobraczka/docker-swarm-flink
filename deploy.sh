@@ -209,7 +209,7 @@ if [[ $UPDOWN = "up" ]];then
 	-e $FLINK_TASKMANAGER_MEMORY_SIZE \
 	-e $FLINK_TASKMANAGER_MEMORY_FRACTION \
 	-e $FLINK_JAVA_OPTS \
-	-d docker-swarm-flink-worker && \
+	-d docker-swarm-flink-worker 
 
 elif [[ $1 = "down" ]];then
 	docker service rm flink-master
