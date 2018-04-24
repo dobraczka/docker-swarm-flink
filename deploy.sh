@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Adjust this to the node where you want your flink-master to be
-MASTER_NODE="master_node"
+MASTER_NODE="master"
 
 if [[ ${@: -1} == "up" ]];then
 	UPDOWN="up"
@@ -181,7 +181,8 @@ fi
 
 if [[ $UPDOWN = "up" ]];then
 	echo "Starting master node"
-	docker service create --name flink-master --network flink --replicas 1 --constraint 'node.hostname == $MASTER_NODE' --restart-condition on-failure --endpoint-mode dnsrr \
+	echo "$MASTER_NODE"
+	docker service create --name flink-master --network flink --replicas 1 --constraint "node.hostname == $MASTER_NODE" --restart-condition on-failure --endpoint-mode dnsrr \
 	-e ENABLE_INIT_DAEMON=false \
 	-e $FLINK_JOBMANAGER_RPC_PORT \
 	-e $FLINK_JOBMANAGER_HEAP_MB \
@@ -209,7 +210,7 @@ if [[ $UPDOWN = "up" ]];then
 	-e $FLINK_TASKMANAGER_MEMORY_SIZE \
 	-e $FLINK_TASKMANAGER_MEMORY_FRACTION \
 	-e $FLINK_JAVA_OPTS \
-	-d docker-swarm-flink-worker 
+	-d docker-swarm-flink-worker
 
 elif [[ $1 = "down" ]];then
 	docker service rm flink-master
