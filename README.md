@@ -7,12 +7,11 @@ Deploy flink in docker swarm mode
 - You are on your master node
 
 # Running
-Pull the images with
-`docker pull dobraczka/docker-swarm-flink-master:latest`
-
+Build the images with
+`cd worker && docker build -t docker-swarm-flink-worker .`
 and
+`cd master && docker build -t docker-swarm-flink-master .`
 
-`docker pull dobraczka/docker-swarm-flink-worker:latest`
 
 Adjust `deploy.sh` by setting `MASTER_NODE` to the address of your master node
 
